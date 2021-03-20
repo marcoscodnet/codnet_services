@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Rasty observer - test</title>
+
+<script>
+
+function showMessage(msg){
+
+	var el = document.createElement("div");
+    el.innerHTML = JSON.parse(msg);
+    document.body.appendChild(el);
+
+    console.log(msg);
+}
+
+function sendMessage(msg){
+
+	
+	conn.send( document.getElementById("message").value );
+	
+}
+
+function subscribeOn(value){
+
+	$message = '{"type":"subscription", "eventType":"' + value  + '"}';
+	
+	conn.send( $message );
+
+}
+
+function sendTurnoChange(){
+
+	var message = new Object();
+	message.type = "model-change";
+	message.params = new Object();
+	message.eventType = "Turno";
+	
+	var jsonMessage = JSON.stringify(message, "\t");
+	console.log( "sending..." + jsonMessage);
+	
+	conn.send( jsonMessage );
+
+}
+
+
+var conn = new WebSocket('ws://localhost:8084');
+conn.onopen = function(e) {
+    showMessage("Connection established!");
+    
+};
+
+conn.onmessage = function(e) {
+    
+    showMessage(e.data);
+    
+};
+
+
+</script>
+</head>
+<body>
+
+	Mensaje: <input type="text" id="message" > <button onclick="sendMessage();">enviar</button>
+
+	<button onclick="subscribeOn('Turno');">subscribe Turno</button>
+	<button onclick="subscribeOn('Profesional');">subscribe Profesional</button>
+	<button onclick="sendTurnoChange();">enviar cambio en turno</button>
+	
+	<br /><br />
+</body>
+</html>

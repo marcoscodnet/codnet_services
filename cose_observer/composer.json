@@ -1,0 +1,18 @@
+{
+    "name": "codnet/observer",
+    "type": "library","version":"1.0.0",
+    "description": "Codnet Services for PHP",
+    "keywords": ["php", "framework", "services", "observer", "codnet"],
+    "homepage": "http://www.codnet.com.ar",
+    "license": "GPL v2",
+    "authors": [
+        {"name": "Bernardo Iribarne", "email": "ber.iribarne@gmail.com"}
+    ],
+    "autoload": {
+        "psr-0": {
+            "Cose\\Observer": "src/main/php"
+        }
+    },"require": {
+        "cboden/Ratchet": "0.2.*"
+    }
+}
